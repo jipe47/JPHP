@@ -1,4 +1,0 @@
-JPHP
-====
-
-PHP framework.

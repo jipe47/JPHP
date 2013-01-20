@@ -1,0 +1,10 @@
+<div id="top"> </div>
+<div id="menu">
+	<ul>
+		<li><a href="?Home" {if JPHP::getArg(0) == "Home"} class="active"{/if}>Home</a></li>
+		<li><a href="?AdminPanel"{if JPHP::getArg(0) == "AdminPanel" || JPHP::getArg(0) == "Admin"} class="active"{/if}>Admin</a></li>
+		{if jphp_isAdmin()}
+		<li><a href="?Request/jphp/logout/{$smarty.server.QUERY_STRING}">Log out</a></li>
+		{/if}
+	</ul>
+</div>

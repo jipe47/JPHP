@@ -1,0 +1,18 @@
+.category_widget .selected
+{
+	font-weight: bold;
+}
+
+.category_widget li
+{
+	margin-left: 20px;
+	padding: 3px;
+}
+
+#curve_category_tree
+{
+	float: left;
+	border-right: 1px black solid;
+	padding-right: 10px;
+	margin-right: 10px;
+}
