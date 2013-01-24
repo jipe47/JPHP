@@ -83,7 +83,7 @@ $_SESSION['jphp_ids'] = array();
 if($generateCache)
 	Cache::save();
 
-JPHP::setDebug(false);
+JPHP::setDebug(true);
 
 require_once "lib/openid/openid.php";
 ?>
