@@ -145,7 +145,7 @@ class Includer
 		
 			while($file = readdir($dir_handle))
 			{
-				if($file == "." || $file == ".." || $file == ".svn" || !is_dir($path."/".$file))
+				if($file == "." || $file == ".." || $file == ".svn" || $file == ".git" || !is_dir($path."/".$file))
 					continue;
 				
 				// Cache information

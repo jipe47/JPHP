@@ -158,7 +158,7 @@ class HtmlHeaders
 				
 				while($file = readdir($dir_handle))
 				{
-					if($file == "." || $file == ".." || $file == ".svn")
+					if($file == "." || $file == ".." || $file == ".svn" || $file  == ".git")
 						continue;
 					$file_origin = $file;
 					$file = $path."/".$file;
