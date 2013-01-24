@@ -28,7 +28,7 @@ define("DEFAULT_LANGUAGE", 7);
 
 define("TPL", PATH_TPL."default/");
 
-define("URL_SITE", "http://www.itstudents.be/~jipe/wegift/dev/");
+define("URL_SITE", "http://www.itstudents.be/~jipe/jphp");
 define("EMAIL", "noreply@wegift.com");
 
 define("DATE_FORMAT", "%d/%m/%Y");
