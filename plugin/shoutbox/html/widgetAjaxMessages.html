@@ -1,0 +1,6 @@
+{foreach from=$array_message item=entry}
+	<em>({$entry.timestamp|date_format:"{$DATE_FORMAT}"})</em>
+	<strong>{$entry.nickname}</strong><br />
+	{$entry.message}
+<hr />
+{/foreach}
