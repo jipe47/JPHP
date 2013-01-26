@@ -7,9 +7,4 @@ class ShoutboxPage extends Page
 		$this->setTitle("Shoutbox Example");
 		$this->setTemplate($this->path_html."shoutbox.html");
 	}
-	
-	public function prerender()
-	{
-		$this->assign("array_message", $this->model->getLastMessages());
-	}
 }

@@ -1,15 +1,3 @@
 <h1>Shoutbox</h1>
 
-<form method="post" action="?Request/Shoutbox/insert">
-	<p>Nickname: <input type="text" name="nickname" /></p>
-	<p>Message:</p>
-	<p><textarea name="message"></textarea></p>
-	<p><input type="submit" value="Send" /></p>
-</form>
-<br /><br />
-{foreach from=$array_message item=entry}
-	<em>({$entry.timestamp|date_format:"{$DATE_FORMAT}"})</em>
-	<strong>{$entry.nickname}</strong><br />
-	{$entry.message}
-<hr />
-{/foreach}
+{jphp_widget p=Shoutbox}
