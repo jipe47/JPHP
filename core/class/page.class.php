@@ -356,7 +356,7 @@ abstract class Page extends Object
 			return true;
 	
 		if($this->access_admin_only)
-			return jphp_isAdmin();
+			return User::isAdmin();
 	
 		if($this->access_group && User::inGroup($this->array_group))
 			return true;
