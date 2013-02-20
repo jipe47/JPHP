@@ -26,16 +26,12 @@ class AssociativeFile
 	
 	public static function saveContent($file, $content)
 	{
-		out::message("Saving " . $file . " : " . serialize($content));
 		if(file_exists($file))
 			unlink($file);
-		$handle = fopen($file, 'a');
-		if($handle === false)
-			out::message("ERROR", Message::ERROR);
+		$handle = fopen($file, 'w+');
 		foreach($content as $k => $v)
 			fputs($handle, $k.":".$v.PHP_EOL);
 		fclose($handle);
-		out::message("Done");
 	}
 	
 	public function __construct($filename)
