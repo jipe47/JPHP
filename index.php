@@ -18,7 +18,7 @@ if($query_string == "")
 $array_query = explode(JPHP::ARG_SEPARATOR, $query_string);
 JPHP::setArg($array_query);
 /* If an identification cookies exist, redirect the user to the appropriate page. */
-if(!jphp_isAdmin() && !empty($_COOKIE[STRUCTURE_NAME.'_login']) && !empty($_COOKIE[STRUCTURE_NAME.'_password']) 
+if(!User::isAdmin() && !empty($_COOKIE[STRUCTURE_NAME.'_login']) && !empty($_COOKIE[STRUCTURE_NAME.'_password']) 
 	&& (JPHP::argc() == 0 || (JPHP::argc() > 0 && JPHP::arg(0) != "Request")))
 	JPHP::setArg(array_merge(array('Request', 'jphp', 'login_cookie'), $array_query));
 

@@ -70,8 +70,4 @@ function array_compare($op1, $op2)
     return 0; // $op1 == $op2
 }
 
-function jphp_isAdmin()
-{
-	return isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] > 0;
-}
 ?>

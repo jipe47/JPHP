@@ -71,8 +71,11 @@ class User
 	*/
 	public static function isAdmin()
 	{
+		/*
 		self::checkLoad();
 		return ALL_ACCESS || self::$isAdmin;
+		*/
+		return isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] > 0;
 	}
 	
 	/**
