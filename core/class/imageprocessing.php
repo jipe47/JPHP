@@ -14,7 +14,7 @@ class ImageProcessing
 		if(!file_exists($file))
 		{
 			Messages::add("Crop: file " . $file . " does not exist.", Message::ERROR);
-			Log::add("Crop: file " . $file . " does not exist.");
+			//Log::add("Crop: file " . $file . " does not exist.");
 			return false;
 		}
 		$array_dim = getimagesize($file);
@@ -27,7 +27,7 @@ class ImageProcessing
 		if($width < $maxWidth || $height < $maxHeight)
 		{
 			Messages::add("Crop: file too small.", Message::ERROR);
-			Log::add("Crop: file ".$file." too small.");
+			//Log::add("Crop: file ".$file." too small.");
 			return false;
 		}
 			
