@@ -98,7 +98,7 @@ class FileUpload
 	/**
 	 * Checks the upload status of a file and move it.
 	 * @param string $field The name of the file (key in $_FILES).
-	 * @param string $folder The place to move the file.
+	 * @param string $folder The place to move the file, relative to PATH_UPLOAD.
 	 * @return string An error if the upload fails (see constants ERROR_*), the filename otherwise.
 	 */
 	public static function moveFile($field, $folder)
