@@ -305,10 +305,13 @@ class SqlRequest
 	* @return int Number of entries in the specified table that satisfy the WHERE clause.
 	* 
 	*/
-	public function count($table, $where = '')
+	public function count($table)
 	{
-		if($where == '')
+		$argc = func_num_args();
+		if($argc == 1)
 			return $this->countAll($table);
+		else
+			$where = $argc == 2 ? func_get_arg(1) : func_get_arg(1)."='".func_get_arg(2)."'"; 
 			
 		$retour = $this->firstQuery("SELECT COUNT(*) as comptage FROM " . $table . " WHERE " . $where);
 		return $retour['comptage'];
