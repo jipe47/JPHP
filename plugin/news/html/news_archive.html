@@ -1,0 +1,8 @@
+<div class="widget-container widget_archive">
+	<h3>Archives</h3>
+	<ul>
+		{foreach from=$array_archive item=a}
+		<li><a href='?News/d{$a.timestamp|date_format:"%m-%Y"}'>{$a.timestamp|date_format:"%B %Y"}</a> ({$a.count})</li>
+		{/foreach}
+	</ul>
+</div>

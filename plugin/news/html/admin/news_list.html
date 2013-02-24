@@ -1,0 +1,25 @@
+<div class="content_wrapper">
+	<h1>News List</h1>
+	<table class="tab_admin">
+		<tr>
+			<th width="100" class="center">Timestamp</th>
+			<th>Title</th>
+			<th width="80" class="center">Actions</th>
+		</tr>
+		{foreach from=$array_news item=n}
+		<tr>
+			<td class="center">{$n.timestamp|date_format:"{$DATE_FORMAT}"}</td>
+			<td><a href="?News/{$n.id}">{$n.title}</a></td>
+			
+			<td class="center">
+				<a href="?Admin/News/edit/{$n.id}"><img src="{$COMMON}images/buttons/edit.png" title="Edit this news" alt="Edit this news" /></a>
+				<a href="?Admin/News/delete/{$n.id}"><img src="{$COMMON}images/buttons/delete.png" title="Delete this news" alt="Delete this news" /></a>
+			</td>
+		</tr>
+		{/foreach}
+	</table>
+	<br />
+	<p>
+		<a href="?Admin/News/add" class="button white medium">Add an news</a>
+	</p>
+</div>

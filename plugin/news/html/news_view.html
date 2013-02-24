@@ -1,0 +1,14 @@
+<div id="news">
+	<h2><a href="#">{$news.title}</a></h2>
+	<div class="posted">
+		<span class="date">{$news.timestamp|date_format:"{$DATE_FORMAT}"}</span>
+		<span class="author"><a href="#">{$news.id_user}</a></span>
+		
+		<div class="clear"></div>
+	 </div>
+	<div class="excerpt">
+		<p>{nl2br($news.header)}</p>
+			<br />
+		<p>{nl2br($news.content)}</p>
+	</div>
+</div>

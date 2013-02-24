@@ -1,0 +1,23 @@
+<div class="content_wrapper_sbr">
+	{foreach from=$array_news item=n}
+	<div class="post">
+		<h2><a href="?Article/{$n.id}">{$n.title}</a></h2>
+		<div class="posted">
+			<span class="date">{$n.timestamp|date_format:"{$DATE_FORMAT}"}</span>
+			<span class="author">{$n.id_user}</span>
+			<span class="comments"><a href="?Article/{$n.id}">{intval($n.nbr_comment)} {"article_info_comment"|translate}{if $n.nbr_comment > 1}s{/if}</a></span>
+			<div class="clear"></div>
+	  </div>
+	  	{if $n.picture != ""}
+		<div class="post_thumb">
+			<a href="?Article/{$n.id}"><img src="{$PATH_UPLOAD}article/crop/{$n.picture}" alt="" border="0" class="pic" /></a>
+		</div>
+		{/if}
+		<div class="excerpt">
+			<p>{nl2br($n.header)}</p>
+		</div>
+		<a href="?Article/{$n.id}" title="read more" class="btn alignleft">{"article_info_readmore"|translate}</a>
+		<div class="clear"></div>
+	</div>
+	{/foreach}
+</div>

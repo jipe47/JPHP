@@ -1,0 +1,10 @@
+<div class="content_wrapper">
+	<h1>Article Suppression</h1>
+	<form method="post" action="?Request/News/delete/{$info.id}">
+		<p>Are you sure you want to delete the news <strong>{$info.title}</strong>?</p>
+		<p>
+			<input type="submit" value="Yes" />
+			<input type="button" value="No" onclick="window.location='?Admin/News/list';" />
+		</p>
+	</form>
+</div>

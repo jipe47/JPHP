@@ -1,0 +1,3 @@
+{foreach from=$array_news item=a}
+<a href="?News/{$a.id}">{$a.timestamp|date_format:"{$DATE_FORMAT}"} - {$a.title}</a><br />
+{/foreach}
