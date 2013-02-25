@@ -8,6 +8,8 @@
 */
 class SqlRequest
 {
+	
+	private static $store_request = true;
 	/**
 	* Number of request executed by the class.
 	* @var int
@@ -73,7 +75,6 @@ class SqlRequest
 		else
 		{
 			$b = $this->isLocal();
-			
 			$h = $b ? JPHP::getIni(STRUCTURE_NAME, "sql", "host_local")		: JPHP::getIni(STRUCTURE_NAME, "sql", "host");
 			$u = $b ? JPHP::getIni(STRUCTURE_NAME, "sql", "user_local") 		: JPHP::getIni(STRUCTURE_NAME, "sql", "user");
 			$p = $b ? JPHP::getIni(STRUCTURE_NAME, "sql", "password_local") 	: JPHP::getIni(STRUCTURE_NAME, "sql", "password");
@@ -81,6 +82,15 @@ class SqlRequest
 		}
 		
 		$this->connect($h, $u, $p, $d);
+	}
+	
+	/**
+	 * Enables or disables the storage of executed MySQL requests, enabled by default.
+	 * @param boolean $b True to store requests, false otherwise.
+	 */
+	public static function setStoreRequest($b)
+	{
+		self::$store_request = $b;
 	}
 	
 	/**
@@ -106,6 +116,8 @@ class SqlRequest
 	*/
 	private function isLocal()
 	{
+		if((defined("FORCE_ONLINE") && FORCE_ONLINE))
+			return false;
 		return (defined("FORCE_LOCAL") && FORCE_LOCAL) || in_array($_SERVER['SERVER_ADDR'], array("localhost", "127.0.0.1")) || jphp_startsWith($_SERVER['SERVER_ADDR'], "192.168.");
 	}
 	
@@ -175,7 +187,9 @@ class SqlRequest
 	{
 		$requete = mysql_query($sql,$this->link)or die($this->displayError($sql));
 		$this->nbr_request++;
-		$this->array_request[] = $sql;
+		
+		if(self::$store_request)
+			$this->array_request[] = $sql;
 		
 		$a = explode(" ", $sql);
 		$type = strtoupper($a[0]);
