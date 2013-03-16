@@ -13,6 +13,9 @@ class User
 	*/
 	protected static $id = -1, $info;
 	protected static $isConnected = false, $isAdmin = false;
+	private static $sql_info = 'SELECT u.*
+										FROM %1$s u
+										WHERE u.id="%2$d"';
 	
 	/**
 	* Group ids the user belongs to.
@@ -43,6 +46,11 @@ class User
 	public function __toString()
 	{
 		return self::$nickname . "(" . self::$id . ")";
+	}
+	
+	public static function setSqlInfo($sql)
+	{
+		self::$sql_info = $sql;
 	}
 	
 	/***************/
@@ -236,9 +244,8 @@ class User
 			return;
 		 
 		$request = new SqlRequest();
-		$info = $request->firstQuery("	SELECT u.*
-										FROM " . TABLE_USER . " u
-										WHERE u.id='" . $id . "'");
+		$sql_info = sprintf(self::$sql_info, TABLE_USER, $id);
+		$info = $request->firstQuery($sql_info);
 		
 		if($request->getNbrResponse() == 1)
 		{
