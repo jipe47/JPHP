@@ -9,7 +9,7 @@ function smarty_function_jphp_backButton($params, &$smarty)
 	else if($type == "link_big")
 		$r = '<a href="javascript:history.go(-1)" class="button_link_big">' . $text . '</a>';
 	else if($type == "button")
-		$r = '<input type="button" class="button white" value="' . $text . '" onclick="history.go(-1)" />';
+		$r = '<input type="button" class="button_link" value="' . $text . '" onclick="history.go(-1)" />';
 	else if($type == "button_big")
 		$r = '<input type="button" value="' . $text . '" onclick="history.go(-1)" class="button_link_big" />';
     return $r;
