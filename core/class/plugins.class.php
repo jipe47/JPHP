@@ -10,6 +10,11 @@ class Plugins
 {
 	private static $plugins = array(); // (string) plugin name => instance
 	
+	public static function getDefaultModel($plugin)
+	{
+		return self::getPlugin($plugin)->getDefaultModel();
+	}
+	
 	public static function pluginExists($name)
 	{
 		return array_key_exists($name, self::$plugins);
