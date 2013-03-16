@@ -307,9 +307,9 @@ class Country
 	*/
 	public static function getFlag($iso)
 	{
-		if(!self::isoExists($iso))
-			return PATH_TPL_COMMON."images/countries/empty.png";
+		if(!self::isoExists(strtoupper($iso)))
+			return PATH_TPL_COMMON."images/flags/empty.png";
 		else
-			return PATH_TPL_COMMON."images/countries/".strtolower($iso).".png";
+			return PATH_TPL_COMMON."images/flags/".strtolower($iso).".png";
 	}
 }
