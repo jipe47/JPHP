@@ -52,7 +52,7 @@ class Debugger extends Page
 		$this->assign("array_cache", $array_cache);
 		
 		
-		$array_panel = array("cache_notification", "cache", "config", "chrono", "user", "sql", "right", "plugin", "cookie", "session", "log", "pageRegister");
+		$array_panel = array("translator", "cache_notification", "cache", "config", "chrono", "user", "sql", "right", "plugin", "cookie", "session", "log", "pageRegister");
 		$this->assign("array_panel", $array_panel);
 	}
 }
