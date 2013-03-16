@@ -11,6 +11,9 @@ class NewsAdmin extends AdminPage
 		$f = $this->arg->string(0);
 		switch($f)
 		{
+			case "category":
+				$this->setLocation("Admin/Category/list/news");
+				return;
 			case "add":
 			case "edit":
 				

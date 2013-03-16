@@ -9,5 +9,6 @@ class NewsPlugin extends Plugin
 		$this->addSqlTable("news");
 		$this->addAdminLink("Add a news", "add");
 		$this->addAdminLink("News list", "list");
+		$this->addAdminLink("Manage news categories", "category");
 	}
 }

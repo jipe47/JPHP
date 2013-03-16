@@ -8,7 +8,11 @@ class NewsModel extends Model
 	
 	function getNews($id_news)
 	{
-		return $this->request->firstQuery("SELECT * FROM " . TABLE_NEWS . " WHERE id='" . intval($id_news)."'");
+		return $this->request->firstQuery("
+				SELECT n.*, u.nickname as nickname_user 
+				FROM " . TABLE_NEWS . " n 
+				LEFT JOIN " . TABLE_USER . " u ON u.id = n.id_user
+				WHERE n.id='" . intval($id_news)."'");
 	}
 	
 	function getLastNews($page, $nbr_per_page)
