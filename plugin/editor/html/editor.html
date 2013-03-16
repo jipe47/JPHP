@@ -10,8 +10,9 @@
 			<img src="{$PATH_PLUGIN}editor/images/bbcode_stroke.png" alt="Stroke" title="Stroke" onclick="addTag('[s]', '[/s]', 'text{$token}')"/>
 			
 			<img src="{$PATH_PLUGIN}editor/images/bbcode_image.png" alt="Image" title="Image" onclick="addTag('[img]', '[/img]', 'text{$token}')"/>
+			{if $enable_upload}
 			<img src="{$TPL}images/icons/page_goback.png" title="Upload an image" alt="Upload an image" onclick='$("#iframeUpload_{$token}").slideToggle()'' />
-			
+			{/if}
 			<img src="{$PATH_PLUGIN}editor/images/bbcode_url.png" alt="Url" title="Url" onclick="addTag('[url]', '[/url]', 'text{$token}')"/>
 			
 			<select id="select_color" onchange="selectChange('text{$token}', 'select_color', 'color', 'Color in hexadecimal (add #).');" tabindex="-1">
@@ -48,7 +49,7 @@
 			
 		</p>
 		{/if}
-		{if $enable_toolbar}
+		{if $enable_toolbar && $enable_upload}
 		<iframe src="?UploadPage/{$token}" frameborder="0" height="50" width="600" scrolling="no" id="iframeUpload_{$token}" style="display: none"></iframe>
 		{/if}
 		<textarea id="text{$token}" rows="{$textarea_row}" cols="{$textarea_col}" name="{$textarea_name}">{$textarea_value}</textarea>
