@@ -47,22 +47,22 @@ class Session
 	
 	public static function int($field, $default = self::DEFAULT_INT)
 	{
-		return !empty($_SESSION[$field]) ? intval($_SESSION[$field]) : $default;
+		return isset($_SESSION[$field]) ? intval($_SESSION[$field]) : $default;
 	}
 	
 	public static function float($field, $default = self::DEFAULT_FLOAT)
 	{
-		return !empty($_SESSION[$field]) ? floatval($_SESSION[$field]) : $default;
+		return isset($_SESSION[$field]) ? floatval($_SESSION[$field]) : $default;
 	}
 	
 	public static function bool($field, $default = self::DEFAULT_BOOL)
 	{
-		return !empty($_SESSION[$field]) ? (bool)$_SESSION[$field] : $default;
+		return isset($_SESSION[$field]) ? (bool)$_SESSION[$field] : $default;
 	}
 	
 	public static function boolValue($field, $trueValue, $default = self::DEFAULT_BOOL)
 	{
-		return !empty($_SESSION[$field]) ? $_SESSION[$field] == $trueValue : $default;
+		return isset($_SESSION[$field]) ? $_SESSION[$field] == $trueValue : $default;
 	}
 	
 	public function __get($var)

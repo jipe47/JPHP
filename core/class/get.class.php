@@ -46,22 +46,22 @@ class Get
 	
 	public static function int($field, $default = self::DEFAULT_INT)
 	{
-		return !empty($_GET[$field]) ? intval($_GET[$field]) : $default;
+		return isset($_GET[$field]) ? intval($_GET[$field]) : $default;
 	}
 	
 	public static function float($field, $default = self::DEFAULT_FLOAT)
 	{
-		return !empty($_GET[$field]) ? floatval($_GET[$field]) : $default;
+		return isset($_GET[$field]) ? floatval($_GET[$field]) : $default;
 	}
 	
 	public static function bool($field, $default = self::DEFAULT_BOOL)
 	{
-		return !empty($_GET[$field]) ? (bool)$_GET[$field] : $default;
+		return isset($_GET[$field]) ? (bool)$_GET[$field] : $default;
 	}
 	
 	public static function boolValue($field, $trueValue, $default = self::DEFAULT_BOOL)
 	{
-		return !empty($_GET[$field]) ? $_GET[$field] == $trueValue : $default;
+		return isset($_GET[$field]) ? $_GET[$field] == $trueValue : $default;
 	}
 	
 	public static function exists($field)

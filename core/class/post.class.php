@@ -48,27 +48,27 @@ class Post
 	
 	public static function int($field, $default = self::DEFAULT_INT)
 	{
-		return !empty($_POST[$field]) ? intval($_POST[$field]) : $default;
+		return isset($_POST[$field]) ? intval($_POST[$field]) : $default;
 	}
 	
 	public static function float($field, $default = self::DEFAULT_FLOAT)
 	{
-		return !empty($_POST[$field]) ? floatval($_POST[$field]) : $default;
+		return isset($_POST[$field]) ? floatval($_POST[$field]) : $default;
 	}
 	
 	public static function double($field, $default = self::DEFAULT_DOUBLE)
 	{
-		return !empty($_POST[$field]) ? doubleval($_POST[$field]) : $default;
+		return isset($_POST[$field]) ? doubleval($_POST[$field]) : $default;
 	}
 	
 	public static function bool($field, $default = self::DEFAULT_BOOL)
 	{
-		return !empty($_POST[$field]) ? (bool)$_POST[$field] : $default;
+		return isset($_POST[$field]) ? (bool)$_POST[$field] : $default;
 	}
 	
 	public static function boolValue($field, $trueValue, $default = self::DEFAULT_BOOL)
 	{
-		return !empty($_POST[$field]) ? $_POST[$field] == $trueValue : $default;
+		return isset($_POST[$field]) ? $_POST[$field] == $trueValue : $default;
 	}
 	
 	public function __get($var)
