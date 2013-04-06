@@ -45,7 +45,7 @@ abstract class HandlerPage extends Page
 	 */
 	public function handler()
 	{
-		$argc = $this->arg->argc;
+		$argc = $this->arg->argc();
 				
 		if($argc == 0)
 		{
