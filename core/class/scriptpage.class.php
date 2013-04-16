@@ -2,6 +2,7 @@
 abstract class ScriptPage extends Page
 {
 	protected $scriptName = "";
+	private $displayInMenu = true;
 	
 	protected $script_arg = array();
 	
@@ -35,6 +36,16 @@ abstract class ScriptPage extends Page
 	public function getScriptArg()
 	{
 		return $this->script_arg;
+	}
+	
+	public function setDisplayInMenu($b)
+	{
+		$this->displayInMenu = $b;
+	}
+	
+	public function getdisplayInMenu()
+	{
+		return $this->displayInMenu;
 	}
 	
 	public abstract function exec();

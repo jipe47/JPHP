@@ -108,13 +108,16 @@ abstract class Plugin extends Object
 		$this->scripts[] = $classname;
 	}
 	
-	public function getScripts()
+	public function getScripts($all = false)
 	{
 		$array_script = array();
 		
 		foreach($this->scripts as $s)
 		{
 			$script_instance = new $s();
+			
+			if(!$all && !$script_instance->getDisplayInMenu())
+				continue;
 			$array_script[] = array('arg' => $script_instance->getScriptArg(),
 									'name' => $script_instance->getScriptName(),
 									'accessname' => $script_instance->getAccessName()
