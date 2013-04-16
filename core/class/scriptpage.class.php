@@ -3,6 +3,9 @@ abstract class ScriptPage extends Page
 {
 	protected $scriptName = "";
 	private $displayInMenu = true;
+	private $silent = false;
+	private $silentMessage = "";
+	private $fromAdminPanel = false;
 	
 	protected $script_arg = array();
 	
@@ -17,7 +20,15 @@ abstract class ScriptPage extends Page
 		$this->setPageType("script");
 	}
 	public function prerender(){
-		$this->exec();
+		$this->fromAdminPanel = Post::boolValue("jphp_fromadminpanel", "1", false);
+	}
+	public function selfrender()
+	{
+		$e = $this->exec();
+		if($this->fromAdminPanel)
+			return $this->silent ? $this->silentMessage : $e;
+		else
+			return $e;
 	}
 	public function getScriptName()
 	{
@@ -43,9 +54,29 @@ abstract class ScriptPage extends Page
 		$this->displayInMenu = $b;
 	}
 	
-	public function getdisplayInMenu()
+	public function getDisplayInMenu()
 	{
 		return $this->displayInMenu;
+	}
+	
+	public function setSilent($b)
+	{
+		$this->silent = $b;
+	}
+	
+	public function getSilent()
+	{
+		return $this->silent;
+	}
+	
+	public function setSilentMessage($s)
+	{
+		$this->silentMessage = $s;
+	}
+	
+	public function getSilentMessage()
+	{
+		return $this->silentMessage;
 	}
 	
 	public abstract function exec();
