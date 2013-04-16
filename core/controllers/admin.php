@@ -7,6 +7,9 @@
  */
 class AdminPanel extends Page
 {
+	
+	private $nbr_col = 3;
+	
 	public function construct()
 	{
 		$this->setContainer(TPL."html/container.html");
@@ -15,8 +18,13 @@ class AdminPanel extends Page
 	
 	public function prerender()
 	{
+		$array_plugin = Plugins::getAdminInfos();;
+		
+		$this->assign("nbr_plugin", count($array_plugin));
+		$this->assign("nbr_col", $this->nbr_col);
+		$this->assign('array_plugin', $array_plugin);
+		
 		$this->setTemplate(PATH_TPL_COMMON."html/admin.html");
-		$this->assign('array_plugin', Plugins::getAdminInfos());
 		JPHP::addOnloadFunction("adminInitScript()");
 	}
 }
