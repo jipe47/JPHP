@@ -1,0 +1,2 @@
+- add a folder to automatically add plugins to Smarty within a JPHP plugin
+- Smarty post-filter to remove characters from templates (\n, \r\n, \r, \t) and remove the code in index.php
