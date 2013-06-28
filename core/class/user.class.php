@@ -291,12 +291,12 @@ class User
 		$_SESSION['jphp_user'] = serialize($a);
 	}
 	
-	public function getInfo($key)
+	public static function getInfo($key)
 	{
 		return self::$info[$key];
 	}
 	
-	public function hasInfo($key)
+	public static function hasInfo($key)
 	{
 		return array_key_exists($key, self::$info) &&  self::$info[$key] != "";
 	}
