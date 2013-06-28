@@ -75,7 +75,7 @@ class HtmlHeaders
 	* Returns a string containing every inserted headers, formated to insert in a HTML page.
 	* @return string Headers in HTML format.
 	*/
-	public function getHeaders()
+	public static function getHeaders()
 	{
 		if(count(self::$headers) == 0)
 			return "";

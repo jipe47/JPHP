@@ -212,7 +212,7 @@ class User
 	/**
 	* Loads user data from session.
 	*/
-	protected function loadUserObject()
+	protected static function loadUserObject()
 	{
 		if(!empty($_SESSION['jphp_user']))
 		{
