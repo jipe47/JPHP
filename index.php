@@ -11,8 +11,10 @@ $query_string = $_SERVER['QUERY_STRING'];
 
 // Remove potentiel $_GET var from JPHP url
 if(count($_GET) > 0)
-	$query_string = urldecode(array_shift(array_keys($_GET)));
-
+{
+	$t = array_keys($_GET);
+	$query_string = urldecode(array_shift($t));
+}
 if($query_string == "")
 	$query_string = JPHP::get("default_page");
 $array_query = explode(JPHP::ARG_SEPARATOR, $query_string);
