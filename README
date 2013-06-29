@@ -1,27 +1,26 @@
-JPHP
-====
+#JPHP
 
-A. Pré-requis
--------------
+This PHP framework is a home-made project and an attempt to create a simple and
+efficient system.
 
-Ce système a été développé et testé avec PHP 5.3.13. Tant que la version de PHP
-est >= 5.3, tout devrait être compatible (sous réserve de modifications
-mineures).
+##Prerequisites
 
-B. Installation
----------------
+This framework has been developed under PHP 5.4.16. It *should* be compatible
+with PHP >= 5.3 but may require a few modifications.
 
-1. Uploader les fichiers dans le répertoire approprié ;
-2. Ajouter les droits d'écriture aux dossiers "log", "templates_c" et "cache" ;
-3. Spécifier les paramètres de la BDD MySQL dans le fichier "config/config.ini";
-4. Importer le fichier db.sql.
+##Installation
 
-C. Documentation
-----------------
+1. Upload files in an appropriated directory
+2. Add write privileges to folders *log*, *templaces_c* and *cache*
+3. Define MySQL parameters in *config/config.ini*
+4. Import *db.sql*
 
-Voici un wiki (en cours d'écriture à l'heure actuelle) présentant le framework
-PHP qui a été utilisé : http://www.itstudents.be/~jipe/jphp/wiki . Sa stabilité
-a été testée et est assurée pour ce projet, néanmoins des modifications internes
-ou des utilisations un peu plus exotiques (par exemple l'utilisation du cache)
-peut entraîner des bugs, vu que certaines fonctionnalités n'ont pas été
-terminées.
+##Documentation
+
+Check-out http://www.jphp.be for a wiki describing how to use this framework.
+
+##Licence
+
+This code is under [CC BY-NC](http://en.wikipedia.org/wiki/Creative_Commons_license "Creative Commons licence");
+you may reuse this code by mentioning its author and only for non-commercial
+purposes.
