@@ -47,6 +47,6 @@ class BBCode
 	public static function parse($text)
 	{
 		$text = preg_replace(self::$regex, self::$replace, $text);
-		return '<div class="bbcode_parsedtext">'.nl2br($text).'</div>';
+		return nl2br($text);
 	}
 }
