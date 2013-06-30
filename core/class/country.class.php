@@ -281,6 +281,7 @@ class Country
 	 */
 	public static function getName($iso)
 	{
+		$iso = strtoupper($iso);
 		if($iso == "")
 			return "undefined";
 		if(!self::isoExists($iso))
@@ -296,7 +297,7 @@ class Country
 	 */
 	public static function isoExists($iso)
 	{
-		return array_key_exists($iso, self::$countries);
+		return array_key_exists(strtoupper($iso), self::$countries);
 	}
 	
 	/**
