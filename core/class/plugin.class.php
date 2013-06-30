@@ -72,7 +72,7 @@ abstract class Plugin extends Object
 	{
 		if(count($this->models) == 0)
 			$this->defaultModel = $m;
-		// TODO Vérifier unicité du nom
+		// TODO VÃ©rifier unicitÃ© du nom
 		$this->models[$m->getModelName()] = $m;
 	}
 	
@@ -135,6 +135,4 @@ abstract class Plugin extends Object
 	{
 		// To be filled by specialized classes
 	}
-	
-	
 }

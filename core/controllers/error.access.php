@@ -23,9 +23,9 @@ class AccessError extends Error
 			$right = count($a['right']) > 0;
 			$group = count($a['group']) > 0;
 			
-			$this->desc = "<p>Vous devez posséder les attributs suivants:</p><ul>";
+			$this->desc = "<p>Vous devez possÃ©der les attributs suivants:</p><ul>";
 			if(!$a['anonymous'])
-				$this->desc .= "<li><a href='?Login'>Etre identifié</a></li>";
+				$this->desc .= "<li><a href='?Login'>Etre identifiÃ©</a></li>";
 			
 			if($right)
 			{
@@ -37,7 +37,7 @@ class AccessError extends Error
 				$info_group = $this->request->fetchQuery("SELECT id, name FROM " . TABLE_GROUP . " WHERE id IN (".implode(",", $a['group']).")");
 				
 				foreach($info_group as $g)
-					$this->desc .= "<li>Posséder le droit <strong>".$g['name']."</strong></li>";
+					$this->desc .= "<li>PossÃ©der le droit <strong>".$g['name']."</strong></li>";
 				
 			}
 			$this->desc .= "</ul>";

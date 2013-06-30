@@ -35,7 +35,7 @@ class SqlRequest
 	private $nbr_response;
 	
 	// Exception value
-	// Todo : virer cette vérification
+	// Todo : virer cette vÃ©rification
 	private $excpt = array("CURRENT_TIMESTAMP", "NULL");
 	
 	public static function removeIntKeys($array)
