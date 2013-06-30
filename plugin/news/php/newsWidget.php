@@ -3,6 +3,8 @@ class NewsWidget extends Widget
 {
 	public function prerender()
 	{
+		$this->assign("commentPlugin", Plugins::pluginExists("Comments"));
+		
 		$view = $this->arg->string("view");
 		
 		switch($view)
@@ -16,10 +18,7 @@ class NewsWidget extends Widget
 			default:
 			case "recent":
 			case "last":
-				$array = $this->request->fetchQuery("
-				SELECT *
-				FROM " . TABLE_NEWS . "
-				ORDER BY id DESC LIMIT 5");
+				$array = $this->model->getLastNews(1, 5);
 				break;
 		}
 		$this->assign("array_news", $array);

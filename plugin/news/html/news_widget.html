@@ -1,3 +1,4 @@
 {foreach from=$array_news item=a}
-<a href="?News/{$a.id}">{$a.timestamp|date_format:"{$DATE_FORMAT}"} - {$a.title}</a><br />
+<a href="?News/{$a.id}">{$a.timestamp|date_format:"{$DATE_FORMAT}"} - {$a.title}</a>
+{if $commentPlugin && $a.enable_comment}{intval($a.nbr_comment)} {jphp_image src="{'comment'|jphp_icon}" description="Comments"}{/if}<br />
 {/foreach}
