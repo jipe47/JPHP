@@ -1,25 +1,30 @@
-#JPHP
+JPHP
+====
 
 This PHP framework is a home-made project and an attempt to create a simple and
 efficient system.
 
-##Prerequisites
+Prerequisites
+-------------
 
 This framework has been developed under PHP 5.4.16. It *should* be compatible
 with PHP >= 5.3 but may require a few modifications.
 
-##Installation
+Installation
+-------------
 
 1. Upload files in an appropriated directory
 2. Add write privileges to folders *log*, *templaces_c* and *cache*
 3. Define MySQL parameters in *config/config.ini*
 4. Import *db.sql*
 
-##Documentation
+Documentation
+-------------
 
 Check-out http://www.jphp.be for a wiki describing how to use this framework.
 
-##Licence
+Licence
+-------------
 
 This code is under [CC BY-NC](http://en.wikipedia.org/wiki/Creative_Commons_license "Creative Commons licence");
 you may reuse this code by mentioning its author and only for non-commercial
