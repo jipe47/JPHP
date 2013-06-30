@@ -54,8 +54,6 @@ class Includer
 	}
 	
 	// Handling functions stuff
-	
-	
 	private static $handlers_cache = array();
 	private static $handlers_uncache = array();
 	
@@ -77,11 +75,9 @@ class Includer
 		// Using cache
 		if(!self::generateCaching())
 		{
-			//out::message("Include Plugin cache: on");
 			$chrono = Singleton::getInstance("Chrono");
 			foreach(self::$cache_plugins as $p)
 			{
-				//$chrono->start("Plugin cache: including " . $p['pluginname']);
 				$path = PATH_PLUGIN.$p['dirname']."/";
 				
 				foreach($array_allowed_constant as $c)
@@ -115,8 +111,7 @@ class Includer
 				
 				foreach($p['pages'] as $class)
 					PageRegister::registerPage($class, $p['pluginname']);
-				
-				//$chrono->stop("Plugin cache: including " . $p['pluginname']);
+		
 			}
 			
 			foreach(self::$handlers_uncache as $h)
@@ -131,14 +126,10 @@ class Includer
 			self::$handlers_uncache = array();
 			
 			// Registering default handlers
-			/*self::$handlers_cache[] = "Includer::handlerPage";
-			self::$handlers_cache[] = "Includer::handlerWidget";
-			*/
 			self::addHandler("Includer::handlerPage", false);
 			self::addHandler("Includer::handlerWidget", false);
 			self::addHandler("Includer::handlerScript", false);
 			
-			//out::message("Include Plugin cache: off", Message::WARNING);
 			$dir_handle= @opendir($path) or die("Cannot open <strong>" . $path . "</strong> for include.");
 			
 			$included_class = get_declared_classes();
@@ -238,7 +229,6 @@ class Includer
 			return;
 		$info_plugin['scripts'][] = $class;
 		$plugin_instance->addScript($class);
-		//PageRegister::registerPage($class, $info_plugin['pluginname']);
 	}
 	
 	public static function handlerPage($class, &$plugin_instance, &$info_plugin)
@@ -275,8 +265,6 @@ class Includer
 	public static function includePath($path, $registerPage = true)
 	{
 		self::cacheLoad();
-		//$chrono = Singleton::getInstance("Chrono");
-		//$chrono->start("including " . $path);
 		$phpFound = false;
 		$included_class = get_declared_classes();
 		
@@ -339,8 +327,6 @@ class Includer
 				}
 			}
 		}
-		
-		//$time = $chrono->stop("including " .$path);
 	}
 	
 	/**

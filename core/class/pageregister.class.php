@@ -28,31 +28,23 @@ class PageRegister
 	}
 	public static function registerPage($classname, $pluginname = '')
 	{
-		/*
-		self::cacheLoad();
-		if(array_key_exists($classname, self::$cache_pages))
+		if(!self::$cache_pages_reset)
 		{
-			self::insertInRegister(self::$cache_pages[$classname]['accessname'], $classname, null, $pluginname, self::$cache_pages[$classname]['type']);
+			self::$cache_pages = array();
+			self::$cache_pages_reset = true;
 		}
-		else {
-		*/
-			if(!self::$cache_pages_reset)
-			{
-				self::$cache_pages = array();
-				self::$cache_pages_reset = true;
-			}
-	
-			$page_instance = $pluginname == '' ? new $classname() : new $classname(Plugins::getPlugin($pluginname));
-			$page_type = $page_instance->getPageType();
-	
-			$accessName = $page_instance->getAccessName();
-	
-			if($accessName == "")
-				$accessName = $classname;
-			self::insertInRegister($accessName, $classname, $page_instance, $pluginname, $page_type);
-			self::$cache_pages[$classname] = array("accessname" => $accessName, "type" => $page_type, "pluginname" => $pluginname, "plugin_usage" => array());
-			self::cacheSave();
-		//}
+
+		$page_instance = $pluginname == '' ? new $classname() : new $classname(Plugins::getPlugin($pluginname));
+		$page_type = $page_instance->getPageType();
+
+		$accessName = $page_instance->getAccessName();
+
+		if($accessName == "")
+			$accessName = $classname;
+		self::insertInRegister($accessName, $classname, $page_instance, $pluginname, $page_type);
+		self::$cache_pages[$classname] = array("accessname" => $accessName, "type" => $page_type, "pluginname" => $pluginname, "plugin_usage" => array());
+		self::cacheSave();
+
 	}
 	
 	public static function getTypes()
