@@ -6,18 +6,24 @@
 * @package Core
 * @subpackage Misc
 */
-class Mail
+class Mail extends Object
 {
 	private $headers = array();
 	private $to, $subject, $message;
 	
-	public function __construct($to, $subject, $message)
+	public function __construct($to, $subject, $message='')
 	{
+		parent::__construct();
 		$this->to = $to;
 		$this->subject = $subject;
 		$this->message = $message;
 		$this->addHeader("Content-type", "text/html; charset=utf-8");
 		$this->addHeader("From", EMAIL);
+	}
+	
+	public function setMessageTemplate($template)
+	{
+		$this->message = $this->renderFile($template);
 	}
 	
 	public function __set($field, $value)
