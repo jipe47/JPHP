@@ -278,7 +278,7 @@ class User
 	/**
 	* Saves the object state in a session.
 	*/
-	public function updateLogObject()
+	public static function updateLogObject()
 	{
 		$a = array(
 					'array_group' => self::$array_group, 
