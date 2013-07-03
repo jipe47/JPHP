@@ -58,7 +58,7 @@ abstract class Cache2
 		$this->loadCache();
 		if($field == "")
 			return $this->data;
-			else
+		else
 			return array_key_exists($field, $this->data) ? $this->data[$field] : null;
 	}
 	
@@ -84,7 +84,7 @@ abstract class Cache2
 	
 	public function getBuildTime()
 	{
-		return self::$buildTimes[$this->name];
+		return array_key_exists($this->name, self::$buildTimes) ? self::$buildTimes[$this->name] : -1;
 	}
 	
 	public function setBuildTime()
@@ -137,7 +137,7 @@ abstract class Cache2
 	
 	public function setName($n)
 	{
-		$this->name = $n;
+		$this->name = md5($n);
 	}
 	
 	public function getName()
