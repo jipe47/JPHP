@@ -19,13 +19,14 @@ abstract class Cache2
 	
 	public function loadCache()
 	{
-		// Load update and build times (if necessary)
+		echo "loadCache()<br />";
+		// Load update if necessary)
 		self::loadUpdateTimes();
-		self::loadBuildTimes();
 		
 		// Load data from session if it is defined
 		if(!empty($_SESSION["cache_".$this->name]))
 		{
+			echo "loadCache - load from session<br />";
 			$ser = unserialize($_SESSION["cache_".$this->name]);
 			self::$buildTimes[$this->name] = $ser['buildTime'];
 			$this->data = $ser['data'];
@@ -33,16 +34,18 @@ abstract class Cache2
 		}
 		else if(file_exists(PATH_CACHE."cache_".$this->name.".cache")) // Disponible dans fichier cache
 		{
+			echo "loadCache - load from file<br />";
 			$ser = unserialize(file_get_contents(PATH_CACHE."cache_".$this->name.".cache"));
 			self::$buildTimes[$this->name] = $ser['buildTime'];
 			$this->data = $ser['data'];
+			$this->isBuild = true;
 		}
 		
 		// Else build the cache
-		if(!$this->isBuild || self::$buildTimes[$this->name] < self::$updateTimes[$this->name])
+		if(!$this->isBuild || $this->getBuildTime() < $this->getUpdateTime())
 		{
 			$this->build();
-			self::$buildTimes[$this->name] = time();
+			$this->setBuildTime();
 			$this->saveCache();
 		}
 	}
@@ -51,25 +54,48 @@ abstract class Cache2
 	public function get($field)
 	{
 		$this->loadCache();
+		if($field == "")
+			return $this->data;
+			else
+			return array_key_exists($field, $this->data) ? $this->data[$field] : null;
 	}
 	
-	/****************************/
-	/*** Time related methods ***/
-	/****************************/
+	
+	
+	public function saveCache()
+	{
+		echo "saveCache()<br />";
+		$d = serialize(array(	"buildTime" => self::$buildTimes[$this->name],
+								"data" => $this->data));
+		$_SESSION["cache_".$this->name] = $d;
+		file_put_contents(PATH_CACHE."cache_".$this->name.".cache", $d);
+	}
+	
+	/*********************************/
+	/*** Buildtime related methods ***/
+	/*********************************/
 	
 	public function getBuildTime()
 	{
-		
+		return self::$buildTimes[$this->name];
 	}
 	
 	public function setBuildTime()
 	{
-		
+		self::$buildTimes[$this->name] = time();
 	}
 	
-	/*******************************************/
-	/*** Time related methods for all caches ***/
-	/*******************************************/
+	public function getUpdateTime()
+	{
+		if(array_key_exists($this->name, self::$updateTimes))
+			return self::$updateTimes[$this->name];
+		else
+			return -1;
+	}
+	
+	/*************************************************/
+	/*** Updatetime related methods for all caches ***/
+	/*************************************************/
 	
 	public static function loadUpdateTimes()
 	{
@@ -77,7 +103,7 @@ abstract class Cache2
 			return;
 		
 		self::$updateLoaded = true;
-		
+		self::$updateTimes = array();
 		$cache_file = PATH_CACHE."updatetimes.cache";
 		
 		if(!file_exists($cache_file))
@@ -91,21 +117,11 @@ abstract class Cache2
 		file_put_contents(PATH_CACHE."updatetimes.cache", serialize(self::$updateTimes));
 	}
 	
-	public static function loadBuildTimes()
+	public static function update($cacheName)
 	{
-		if(self::$buildLoaded)
-			return;
-	
-		self::$buildLoaded = true;
-		
-	}
-	
-	public function saveCache()
-	{
-		$d = serialize(array(	"buildtime" => self::$buildTimes[$this->name],
-								"data" => $this->data));
-		$_SESSION["cache_".$this->name] = $d;
-		file_put_contents(PATH_CACHE."cache_".$this->name.".cache", $d);
+		self::loadUpdateTimes();
+		self::$updateTimes[$cacheName] = time();
+		self::saveUpdateTimes();
 	}
 	
 	/*****************/
