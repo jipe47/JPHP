@@ -39,11 +39,13 @@ abstract class Cache2
 			self::$buildTimes[$this->name] = $ser['buildTime'];
 			$this->data = $ser['data'];
 			$this->isBuild = true;
+			$this->saveCacheInSession();
 		}
 		
 		// Else build the cache
 		if(!$this->isBuild || $this->getBuildTime() < $this->getUpdateTime())
 		{
+			echo "Building the cache ; isBuild = " . $this->isBuild . ", buildtime = " . $this->getBuildTime() . ", updatetime = " . $this->getUpdateTime() . "<br />";
 			$this->build();
 			$this->setBuildTime();
 			$this->saveCache();
@@ -60,7 +62,12 @@ abstract class Cache2
 			return array_key_exists($field, $this->data) ? $this->data[$field] : null;
 	}
 	
-	
+	public function saveCacheInSession()
+	{
+		$d = serialize(array(	"buildTime" => self::$buildTimes[$this->name],
+								"data" => $this->data));
+		$_SESSION["cache_".$this->name] = $d;
+	}
 	
 	public function saveCache()
 	{
