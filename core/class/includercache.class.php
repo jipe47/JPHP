@@ -8,6 +8,6 @@ class IncluderCache extends Cache2
 	
 	public function build()
 	{
-		$this->data["count"] = intval(file_get_contents("pouet.txt"));
+		
 	}
 }
