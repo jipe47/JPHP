@@ -18,7 +18,8 @@ echo "cnt = $cnt<br />";
 
 <br />
 <a href="testCacheReset.php">Reset</a> - 
-<a href="testCacheKillSession.php">Kill session</a> 
+<a href="testCacheKillSession.php">Kill session</a> -
+<a href="testCacheUpdate.php">Update</a> 
 <hr />
 Sessions :
 <pre>
