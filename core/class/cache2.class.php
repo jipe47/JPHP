@@ -62,6 +62,21 @@ abstract class Cache2
 			return array_key_exists($field, $this->data) ? $this->data[$field] : null;
 	}
 	
+	public function set()
+	{
+		$argc = func_num_args();
+		$field = $argc > 1 ? func_get_arg(0) : "";
+		$value = $argc > 1 ? func_get_arg(1) : func_get_arg(0);
+		
+		if($field == "")
+			$this->data = $value;
+		else
+			$this->data[$field]= $value;
+		
+		$this->updateCache();
+		$this->saveCache();
+	}
+	
 	public function saveCacheInSession()
 	{
 		$d = serialize(array(	"buildTime" => self::$buildTimes[$this->name],
@@ -124,6 +139,10 @@ abstract class Cache2
 		file_put_contents(PATH_CACHE."updatetimes.cache", serialize(self::$updateTimes));
 	}
 	
+	public function updateCache()
+	{
+		self::update($this->name);
+	}
 	public static function update($cacheName)
 	{
 		self::loadUpdateTimes();
