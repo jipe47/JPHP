@@ -5,6 +5,8 @@ abstract class Cache2
 	protected $isLoaded = false;
 	protected $data = array();
 	
+	protected static $forceRebuild = false;
+	
 	protected $name;
 	
 	// Update times for all caches, from a cache file
@@ -19,22 +21,22 @@ abstract class Cache2
 	
 	public function loadCache()
 	{
-		//echo "loadCache()<br />";
-		// Load update if necessary)
+		// Load update if necessary
 		self::loadUpdateTimes();
+		
+		if(self::getForceRebuild())
+			goto build;
 		
 		// Load data from session if it is defined
 		if(!empty($_SESSION["cache_".$this->name]))
 		{
-			//echo "loadCache - load from session<br />";
 			$ser = unserialize($_SESSION["cache_".$this->name]);
 			self::$buildTimes[$this->name] = $ser['buildTime'];
 			$this->data = $ser['data'];
 			$this->isBuild = true;
 		}
-		else if(file_exists(PATH_CACHE."cache_".$this->name.".cache")) // Disponible dans fichier cache
+		else if(file_exists(PATH_CACHE."cache_".$this->name.".cache")) // Data available in a cache file
 		{
-			//echo "loadCache - load from file<br />";
 			$ser = unserialize(file_get_contents(PATH_CACHE."cache_".$this->name.".cache"));
 			self::$buildTimes[$this->name] = $ser['buildTime'];
 			$this->data = $ser['data'];
@@ -43,19 +45,21 @@ abstract class Cache2
 		}
 		
 		// Else build the cache
+	build:
 		if(!$this->isBuild || $this->getBuildTime() < $this->getUpdateTime())
 		{
 			//echo "Building the cache ; isBuild = " . $this->isBuild . ", buildtime = " . $this->getBuildTime() . ", updatetime = " . $this->getUpdateTime() . "<br />";
-			$this->build();
+			$this->build(func_get_args());
 			$this->setBuildTime();
 			$this->saveCache();
 		}
 	}
 	
 	
-	public function get($field)
+	public function get()
 	{
-		$this->loadCache();
+		$field = func_get_arg(0);
+		$this->loadCache(func_get_args());
 		if($field == "")
 			return $this->data;
 		else
@@ -64,6 +68,7 @@ abstract class Cache2
 	
 	public function set()
 	{
+		$this->loadCache(func_get_args());
 		$argc = func_num_args();
 		$field = $argc > 1 ? func_get_arg(0) : "";
 		$value = $argc > 1 ? func_get_arg(1) : func_get_arg(0);
@@ -71,7 +76,7 @@ abstract class Cache2
 		if($field == "")
 			$this->data = $value;
 		else
-			$this->data[$field]= $value;
+			$this->data[$field] = $value;
 		
 		$this->updateCache();
 		$this->saveCache();
@@ -162,5 +167,15 @@ abstract class Cache2
 	public function getName()
 	{
 		return $this->name;
+	}
+	
+	public static function setForceRebuild($force)
+	{
+		self::$forceRebuild = $force;
+	}
+	
+	public static function getForceRebuild()
+	{
+		return self::$forceRebuild;
 	}
 }
