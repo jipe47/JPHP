@@ -1,0 +1,4 @@
+{
+	"paths" : ["core/inc", "core/class", "core/controllers", "controllers"],
+	"cache_forcerebuild" : true
+}

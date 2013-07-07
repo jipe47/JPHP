@@ -29,27 +29,18 @@ function jphp_autoload($name)
 
 spl_autoload_register("jphp_autoload");
 
+Cache2::setForceRebuild(FORCE_CACHEREBUILD);
 require_once PATH."core/class/chrono.class.php";
-$chrono = Singleton::getInstance("Chrono");
 
 JPHP::importIni(PATH."config/config.ini", STRUCTURE_NAME);
-
-
-$generateCache = !Cache::load() || FORCE_CACHEREBUILD;
-//$generateCache = true; // Forcing, the hard way
-Includer::setGenerateCaching($generateCache);
+JPHP::importJSON(PATH."config/config.json", STRUCTURE_NAME);
 
 // Recursive include of basic classes and functions
-$chrono->start("Class inclusion");
 Includer::includePath(PATH."core/inc/");
 Includer::includePath(PATH."core/class/");
-$chrono->stop("Class inclusion");
-
 
 // Include plugins
-$chrono->start("Plugin inclusion");
-Includer::includePlugins("plugin/");
-$chrono->stop("Plugin inclusion");
+Includer::includePlugins(PATH_PLUGIN);
 
 // Controller inclusion
 Includer::includePath(PATH."core/controllers/");
@@ -61,13 +52,9 @@ HtmlHeaders::includeDir("js", "lib/jquery/plugins");
 
 
 // Template loading
-//$chrono->start("Template inclusion");
 Includer::includeTemplate(JPHP::get("template"));
-//$chrono->stop("Template inclusion");
 
-//$chrono->start("Common template inclusion");
 Includer::includeTemplate("common");
-//$chrono->stop("Common template inclusion");
 
 // Favicon
 //<link rel="icon" type="image/png" href="favicon.png">
@@ -79,9 +66,6 @@ $favheader->set("href", TPL."images/favicon.ico");
 HtmlHeaders::addHeader($favheader);
 
 $_SESSION['jphp_ids'] = array();
-
-if($generateCache)
-	Cache::save();
 
 JPHP::setDebug(true);
 

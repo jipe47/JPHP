@@ -19,7 +19,8 @@ class JPHP
 	public static $DEV = "dev";
 	
 	private static $mode = "dev"; // self::$DEV does not work ?! :@
-	private static $ini = array();
+	//private static $ini = array();
+	private static $config = array();
 
 	/**
 	 * Function names that will be added to the "onload" attribute of <body> tag.
@@ -233,9 +234,9 @@ class JPHP
 	/**
 	 * For debug purpose ONLY.
 	 */
-	public static function getAllIni()
+	public static function getAllConfig()
 	{
-		return self::$ini;
+		return self::$config;
 	}
 	
 	/**
@@ -245,19 +246,33 @@ class JPHP
 	 */
 	public static function importIni($path, $name)
 	{
-		if(!array_key_exists($name, self::$ini))
-			self::$ini[$name] = array();
+		if(!array_key_exists($name, self::$config))
+			self::$config[$name] = array();
 	
 		$array = parse_ini_file($path, true);
 	
 		foreach($array as $section => $v)
 		{
-			if(!array_key_exists($section, self::$ini[$name]))
-				self::$ini[$name][$section] = array();
+			if(!array_key_exists($section, self::$config[$name]))
+				self::$config[$name][$section] = array();
 	
 			foreach($v as $key => $value)
-				self::$ini[$name][$section][$key] = $value;
+				self::$config[$name][$section][$key] = $value;
 		}
+	}
+	
+	/**
+	 * Imports a JSON file.
+	 * @param string $path Path to the JSON file.
+	 * @param string $name Name used to access to the file content.
+	 */
+	public static function importJSON($path, $name)
+	{
+		if(!array_key_exists($name, self::$config))
+			self::$config[$name] = array();
+		
+		$content = json_decode(file_get_contents($path), true);
+		self::$config[$name] = array_merge($content, self::$config[$name]);
 	}
 	
 	/**
@@ -268,25 +283,25 @@ class JPHP
 	 */
 	public static function get($field, $default = '')
 	{
-		return self::getIni(STRUCTURE_NAME, "config", $field, $default);
+		return self::getConfig(STRUCTURE_NAME, "config", $field, $default);
 	}
 
 	/**
-	 * Gets a value from an ini file.
+	 * Gets a value from the configuration.
 	 * @param string $name Name to access to the ini file.
 	 * @param string $section Section name.
 	 * @param string $field Field name.
 	 * @param string $default Default value if the file, section or field does
 	 * 				 not exist.
 	 */
-	public static function getIni($name, $section, $field, $default = '')
+	public static function getConfig($name, $section, $field, $default = '')
 	{
-		if(	!array_key_exists($name, self::$ini) ||
-				!array_key_exists($section, self::$ini[$name]) ||
-				!array_key_exists($field, self::$ini[$name][$section]))
+		if(	!array_key_exists($name, self::$config) ||
+				!array_key_exists($section, self::$config[$name]) ||
+				!array_key_exists($field, self::$config[$name][$section]))
 			return $default;
 		else
-			return self::$ini[$name][$section][$field];
+			return self::$config[$name][$section][$field];
 	}
 	
 	/**
@@ -298,15 +313,15 @@ class JPHP
 	 * @param string $field Field name.
 	 * @param string $value New value of the field
 	 */
-	public static function setIni($name, $section, $field, $value)
+	public static function setConfig($name, $section, $field, $value)
 	{
-		if(!array_key_exists($name, self::$ini))
-			self::$ini[$name] = array();
+		if(!array_key_exists($name, self::$config))
+			self::$config[$name] = array();
 		
-		if(!array_key_exists($section, self::$ini[$name]))
-			self::$ini[$name][$section] = array();
+		if(!array_key_exists($section, self::$config[$name]))
+			self::$config[$name][$section] = array();
 		
-		self::$ini[$sections][$field] = $value;
+		self::$config[$sections][$field] = $value;
 	}
 	
 	/*********************/
