@@ -107,7 +107,7 @@ class Includer
 	 */
 	public static function includePath($path, $registerPage = true)
 	{
-		echo "IncludePlugins in " . $path . "<br />";
+		echo "IncludePath in " . $path . "<br />";
 		if(self::$cache_includer == null)
 			self::$cache_includer = Singleton::getInstance("IncluderCache");
 		
