@@ -75,10 +75,10 @@ class SqlRequest
 		else
 		{
 			$b = $this->isLocal();
-			$h = $b ? JPHP::getIni(STRUCTURE_NAME, "sql", "host_local")		: JPHP::getIni(STRUCTURE_NAME, "sql", "host");
-			$u = $b ? JPHP::getIni(STRUCTURE_NAME, "sql", "user_local") 		: JPHP::getIni(STRUCTURE_NAME, "sql", "user");
-			$p = $b ? JPHP::getIni(STRUCTURE_NAME, "sql", "password_local") 	: JPHP::getIni(STRUCTURE_NAME, "sql", "password");
-			$d = $b ? JPHP::getIni(STRUCTURE_NAME, "sql", "database_local") 	: JPHP::getIni(STRUCTURE_NAME, "sql", "database");
+			$h = $b ? JPHP::getConfig(STRUCTURE_NAME, "sql", "host_local")		: JPHP::getConfig(STRUCTURE_NAME, "sql", "host");
+			$u = $b ? JPHP::getConfig(STRUCTURE_NAME, "sql", "user_local") 		: JPHP::getConfig(STRUCTURE_NAME, "sql", "user");
+			$p = $b ? JPHP::getConfig(STRUCTURE_NAME, "sql", "password_local") 	: JPHP::getConfig(STRUCTURE_NAME, "sql", "password");
+			$d = $b ? JPHP::getConfig(STRUCTURE_NAME, "sql", "database_local") 	: JPHP::getConfig(STRUCTURE_NAME, "sql", "database");
 		}
 		
 		$this->connect($h, $u, $p, $d);
