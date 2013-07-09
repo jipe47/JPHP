@@ -29,7 +29,8 @@ abstract class AssociativeCache extends Cache2
 					throw new Exception("Cache miss failed");
 					return null;
 				}
-				$this->onMiss($arg);
+				
+				call_user_func_array(array($this, "onMiss"), $arg);
 				$i = -1;
 				$c = $this->data;
 				$alreadyMiss = true;
