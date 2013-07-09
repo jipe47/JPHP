@@ -3,7 +3,8 @@ class Includer
 {	
 	// Handling functions stuff
 	private static $handlers = array();
-	private static $cache = null;
+	private static $cache_plugin = null;
+	private static $cache_includer = null;
 	
 	public static function addHandler($handlerName, $cache)
 	{
@@ -13,8 +14,8 @@ class Includer
 	public static function includePlugins($path)
 	{
 		echo "IncludePlugins in " . $path . "<br />";
-		if(self::$cache == null)
-			self::$cache = Singleton::getInstance("PluginsCache");
+		if(self::$cache_plugin == null)
+			self::$cache_plugin = Singleton::getInstance("PluginsCache");
 		
 		// Registering default handlers
 		self::addHandler("Includer::handlerPage");
@@ -107,55 +108,25 @@ class Includer
 	public static function includePath($path, $registerPage = true)
 	{
 		echo "IncludePlugins in " . $path . "<br />";
-		if(self::$cache == null)
-			self::$cache = Singleton::getInstance("IncluderCache");
+		if(self::$cache_includer == null)
+			self::$cache_includer = Singleton::getInstance("IncluderCache");
 		
 		$phpFound = false;
 		$included_class = get_declared_classes();
 		
-		if(!self::generateCaching() && array_key_exists($path, self::$cache_files))
-		{
-			foreach(self::$cache_files[$path]["dir"] as $f)
-				self::includePath($path.$f);
-			
-			foreach(self::$cache_files[$path]["php"] as $f)
-			{
-				require_once $path."/".$f;
-				$phpFound = true;
-			}
-		}
-		else
-		{
-			self::$cache_files[$path] = array("dir" => array(), "php" => array());
-			$dir_handle= @opendir($path) or die("Cannot open <strong>" . $path . "</strong> for include");
-			
-			while($file = readdir($dir_handle))
-			{
-				if($file == "." ||$file == ".." || $file == ".svn")
-					continue;
-		
-				$pathinfo = pathinfo($path.$file, PATHINFO_EXTENSION);
-		
-				if(is_dir($path."/".$file))
-				{
-					self::$cache_files[$path]["dir"][] = $file;
-					self::includePath($path."/".$file);
-				}
-				else if($pathinfo == "php")
-				{
-					self::$cache_files[$path]["php"][] = $file;
-					require_once $path."/".$file;
-					$phpFound = true;
-				}
-			}
-			
-			self::cacheSave();
-		}
-
+		$info = self::$cache_includer->get($path);
+		$phpFound = count($info["php"]) > 0;
 		if(!$phpFound)
 		{
 			//$time = $chrono->stop("including " .$path);
 			return;
+		}
+		else
+		{
+			foreach($info["subdir"] as $s)
+				Includer::includePath($path."/".$s, $registerPage);
+			foreach($info["php"] as $f)
+				require_once $path."/".$f;
 		}
 		
 		if($registerPage)
