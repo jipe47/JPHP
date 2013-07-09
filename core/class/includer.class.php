@@ -3,6 +3,7 @@ class Includer
 {	
 	// Handling functions stuff
 	private static $handlers = array();
+	private static $cache = null;
 	
 	public static function addHandler($handlerName, $cache)
 	{
@@ -10,13 +11,18 @@ class Includer
 	}
 	
 	public static function includePlugins($path)
-	{		
+	{
+		echo "IncludePlugins in " . $path . "<br />";
+		if(self::$cache == null)
+			self::$cache = Singleton::getInstance("PluginsCache");
+		
 		// Registering default handlers
 		self::addHandler("Includer::handlerPage");
 		self::addHandler("Includer::handlerWidget");
 		self::addHandler("Includer::handlerScript");
+		
+		$cache_plugin = self::$cache->get("plugins", $path);
 	
-		$chrono = Singleton::getInstance("Chrono");
 		foreach(self::$cache_plugins as $p)
 		{
 			$path = PATH_PLUGIN.$p['dirname']."/";
@@ -29,7 +35,7 @@ class Includer
 				HtmlHeaders::includeDir("css", $path."css");
 			if($p['folder_js'])
 				HtmlHeaders::includeDir("js", $path."js");
-			self::includePath($path."php", false, false);
+			self::includePath($path."php", false);
 			
 			$plugin_instance = $p['classname'] != "" ? new $p['classname'] : null;
 			
@@ -92,21 +98,23 @@ class Includer
 	}
 	
 	/**
-	 * Includes recursively a directory. It skips svn folders, and executes a
-	 * "require_once" on php files.
+	 * Includes recursively a directory. It skips svn and git folders and 
+	 * executes a "require_once" on php files.
 	 *
 	 * @param string $path Path to the directory.
 	 * @param boolean $recursive If set, the include is recursive.
 	 */
 	public static function includePath($path, $registerPage = true)
 	{
-		self::cacheLoad();
+		echo "IncludePlugins in " . $path . "<br />";
+		if(self::$cache == null)
+			self::$cache = Singleton::getInstance("IncluderCache");
+		
 		$phpFound = false;
 		$included_class = get_declared_classes();
 		
 		if(!self::generateCaching() && array_key_exists($path, self::$cache_files))
 		{
-			
 			foreach(self::$cache_files[$path]["dir"] as $f)
 				self::includePath($path.$f);
 			
@@ -115,7 +123,6 @@ class Includer
 				require_once $path."/".$f;
 				$phpFound = true;
 			}
-			
 		}
 		else
 		{
