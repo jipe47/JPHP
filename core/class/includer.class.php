@@ -1,69 +1,59 @@
 <?php
 class Includer
 {	
-	// Handling functions stuff
-	private static $handlers = array();
+	// Allowed constants for automatic constants definition (ex : PATH_[plugin directory name]_CSS)
+	private static $array_allowed_constant = array("js", "css", "php", "html");
+	
 	private static $cache_plugin = null;
 	private static $cache_includer = null;
-	
-	public static function addHandler($handlerName, $cache)
-	{
-		self::$handlers_cache[] = $handlerName;
-	}
 	
 	public static function includePlugins($path)
 	{
 		echo "IncludePlugins in " . $path . "<br />";
 		if(self::$cache_plugin == null)
 			self::$cache_plugin = Singleton::getInstance("PluginsCache");
-		
-		// Registering default handlers
-		self::addHandler("Includer::handlerPage");
-		self::addHandler("Includer::handlerWidget");
-		self::addHandler("Includer::handlerScript");
-		
-		$cache_plugin = self::$cache->get("plugins", $path);
+				
+		$cache_plugin = self::$cache_plugin->get($path);
 	
-		foreach(self::$cache_plugins as $p)
+		foreach($cache_plugin as $plugin)
 		{
-			$path = PATH_PLUGIN.$p['dirname']."/";
+			$path = PATH_PLUGIN.$plugin['dirname']."/";
 			
-			foreach($array_allowed_constant as $c)
-				if($p['folder_'.$c])
-					define(strtoupper($p['dirname'])."_".strtoupper($c), $path.$c."/");
+			foreach(self::$array_allowed_constant as $c)
+				if(count($plugin[$c]))
+					define(strtoupper($plugin['dirname'])."_".strtoupper($c), $path.$c."/");
 			
-			if($p['folder_css'])
+			if(count($plugin['css']))
 				HtmlHeaders::includeDir("css", $path."css");
-			if($p['folder_js'])
+			if(count($plugin['js']))
 				HtmlHeaders::includeDir("js", $path."js");
+			
 			self::includePath($path."php", false);
 			
-			$plugin_instance = $p['classname'] != "" ? new $p['classname'] : null;
+			$plugin_instance = $plugin['classname'] != "" ? new $plugin['classname'] : null;
 			
 			if($plugin_instance != null)
 			{
-				$plugin_instance->setPath($p['dirname']."/");
+				$plugin_instance->setPath($plugin['dirname']."/");
 				Plugins::addPlugin($plugin_instance);
-				foreach($p['models'] as $class)
+				foreach($plugin['models'] as $class)
 				{
 					$model_instance = new $class();
 					$plugin_instance->addModel($model_instance);
 				}
 				
-				foreach($p['widgets'] as $class)
+				foreach($plugin['widgets'] as $class)
 				{
 					$widget = new $class($plugin_instance);
 					$plugin_instance->addWidget($widget);
 				}
 			}
 			
-			foreach($p['pages'] as $class)
-				PageRegister::registerPage($class, $p['pluginname']);
+			foreach($plugin['pages'] as $class)
+				PageRegister::registerPage($class, $plugin['pluginname']);
 	
 		}
 		
-		foreach(self::$handlers_uncache as $h)
-			call_user_func_array($h, array());
 	}
 	
 	public static function handlerScript($class, &$plugin_instance, &$info_plugin)
