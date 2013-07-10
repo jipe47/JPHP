@@ -31,6 +31,8 @@ abstract class AssociativeCache extends Cache2
 				}
 				
 				call_user_func_array(array($this, "onMiss"), $arg);
+				$this->saveCache();
+				
 				$i = -1;
 				$c = $this->data;
 				$alreadyMiss = true;
