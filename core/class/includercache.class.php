@@ -26,13 +26,11 @@ class IncluderCache extends AssociativeCache
 				continue;
 	
 			$ext = pathinfo($path.$file, PATHINFO_EXTENSION);
-	
 			if(is_dir($path."/".$file))
 				$subdir[] = $file;
 			else if(in_array($ext, $this->array_ext_include))
 				$found[] = $file;
 		}
-		
 		$this->data[$path] = array("php" => $found, "subdir" => $subdir);
 	}
 }
