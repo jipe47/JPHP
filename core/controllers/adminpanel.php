@@ -18,13 +18,18 @@ class AdminPanel extends Page
 	
 	public function prerender()
 	{
+		if(!User::isAdmin())
+		{
+			$this->setLocation("AdminLogin");
+			return;
+		}
 		$array_plugin = Plugins::getAdminInfos();;
 		
 		$this->assign("nbr_plugin", count($array_plugin));
 		$this->assign("nbr_col", $this->nbr_col);
 		$this->assign('array_plugin', $array_plugin);
 		
-		$this->setTemplate(PATH_TPL_COMMON."html/admin.html");
+		$this->setTemplate(PATH_TPL_COMMON."html/adminpanel.html");
 		JPHP::addOnloadFunction("adminInitScript()");
 	}
 }
