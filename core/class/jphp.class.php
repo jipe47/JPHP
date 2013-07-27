@@ -87,6 +87,7 @@ class JPHP
 			return;
 		
 		self::$arg = Singleton::getInstance("Arg");
+		
 		/*if(in_array(self::$arg->string(0), array("Ajax", "Request", "Admin")))
 			self::$arg->unsetValue(1);
 		self::$arg->unsetValue(0);
@@ -95,8 +96,10 @@ class JPHP
 	
 	public static function getCurrentPage()
 	{
-		self::loadArg();
-		return implode(self::ARG_SEPARATOR, self::$arg->getArray());
+		//self::loadArg();
+		//return implode(self::ARG_SEPARATOR, self::$arg->getArray());
+		$keys = array_keys($_GET);
+		return $keys[0];
 	}
 	
 	public static function setArg($arg)
