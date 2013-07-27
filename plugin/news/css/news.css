@@ -1,0 +1,16 @@
+.news_list
+{
+	
+}
+
+.news_list .news_item
+{
+	border-bottom: lgray;
+	margin-bottom: 3px;
+	padding-bottom: 3px;
+}
+
+.news_list .news_link
+{
+	text-align: right;
+}

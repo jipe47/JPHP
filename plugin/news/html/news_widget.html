@@ -1,4 +1,22 @@
-{foreach from=$array_news item=a}
-<a href="?News/{$a.id}">{$a.timestamp|date_format:"{$DATE_FORMAT}"} - {$a.title}</a>
-{if $commentPlugin && $a.enable_comment}{intval($a.nbr_comment)} {jphp_image src="{'comment'|jphp_icon}" description="Comments"}{/if}<br />
-{/foreach}
+<div class="news_list">
+	{if $enable_header}
+	
+		{foreach from=$array_news item=a}
+		
+		
+		<div class="news_item">
+			<a href="?News/{$a.id}">{$a.timestamp|date_format:"{$DATE_FORMAT}"} - {$a.title}</a><br />
+			{$a.header}<br />
+			<div class="news_link">
+				<a href="?News/{$a.id}">Read more</a>{if $commentPlugin && $a.enable_comment} {intval($a.nbr_comment)} {jphp_image src="{'comment'|jphp_icon}" description="Comments"}{/if}<br />
+			</div>
+		</div>
+		{/foreach}
+	
+	{else}
+		{foreach from=$array_news item=a}
+		<a href="?News/{$a.id}">{$a.timestamp|date_format:"{$DATE_FORMAT}"} - {$a.title}</a>
+		{if $commentPlugin && $a.enable_comment}{intval($a.nbr_comment)} {jphp_image src="{'comment'|jphp_icon}" description="Comments"}{/if}<br />
+		{/foreach}
+	{/if}
+</div>

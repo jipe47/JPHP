@@ -6,7 +6,7 @@ class NewsWidget extends Widget
 		$this->assign("commentPlugin", Plugins::pluginExists("Comments"));
 		
 		$view = $this->arg->string("view");
-		
+		$this->assign("enable_header", true);
 		switch($view)
 		{
 			case "popular":
