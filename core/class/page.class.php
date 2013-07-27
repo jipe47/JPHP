@@ -232,7 +232,8 @@ abstract class Page extends Object
 				$this->assign("onunloadFunctions", JPHP::getOnunloadFunctions());
 	
 				// Final render!
-				$this->tpl->loadFilter('output', 'trimwhitespace');
+				if(JPHP::get("enable_html_compression"))
+					$this->tpl->loadFilter('output', 'trimwhitespace');
 				$render = $this->renderFile(TPL."html/main.html");
 			}
 		}

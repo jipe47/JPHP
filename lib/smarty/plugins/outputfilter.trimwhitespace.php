@@ -52,9 +52,9 @@ function smarty_outputfilter_trimwhitespace($source, $smarty)
 	$source = trim(preg_replace('/((?<!\?>)\n)[\s]+/m', '\1', $source));
 	
 	// From http://xoops.org/modules/newbb/viewtopic.php?post_id=344814
-	$source = trim(preg_replace("#(\r\n|\n|\r)#", "", $source)); 
+	//$source = trim(preg_replace("#(\r\n|\n|\r)#", "", $source)); 
 	/*$source = trim(preg_replace("/<br(s+)?/?>/i", "<br/>", $source)); */
-	$source = trim(preg_replace('#<!--[^>]+-->#','',$source));
+	//$source = trim(preg_replace('#<!--[^>]+-->#','',$source));
 	
 	// replace textarea blocks
 	smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:TEXTAREA@@@",$_textarea_blocks, $source);
