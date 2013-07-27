@@ -114,7 +114,9 @@ class FileUpload
 					$extension = strrchr($file['name'], '.'); 
 					if(self::ALLOW_ALL || array_key_exists($extension, self::$allowed_extension) && self::$allowed_extension[$extension] == $file['type'])
 					{
-						$filename = time();
+						$hash = md5(file_get_contents($file['tmp_name']));
+						$filename = time() . "-".$hash;
+						
 						
 						if(move_uploaded_file($file['tmp_name'], PATH_UPLOAD.$folder."/".$filename.$extension))
 							return $filename.$extension;
