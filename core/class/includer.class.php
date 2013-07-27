@@ -163,7 +163,7 @@ class Includer
 						HtmlHeaders::includeDir($f, $path.$file."/".$f);
 						$info_plugin["folder_".$f] = true;
 					}
-					else if($f == "php")
+					else if($f == "php" || $f == "class")
 						self::includePath($path.$file."/".$f, false);
 					
 					if(in_array($f, $array_allowed_constant))
