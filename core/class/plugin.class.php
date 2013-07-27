@@ -21,6 +21,8 @@ abstract class Plugin extends Object
 	private $widgets = array();
 	private $defaultWidget = null;
 	
+	private $hasBeenPrerendered = false;
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -129,6 +131,14 @@ abstract class Plugin extends Object
 	public function addRight($name)
 	{
 		
+	}
+	
+	public function prerender_once()
+	{
+		if($this->hasBeenPrerendered)
+			return;
+		$this->hasBeenPrerendered = true;
+		$this->prerender();
 	}
 	
 	public function prerender()

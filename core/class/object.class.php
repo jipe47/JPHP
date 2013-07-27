@@ -53,8 +53,7 @@ class Object
 			$this->assign("TIME_FORMAT", 	TIME_FORMAT);
 			
 			$this->assign("STRUCTURE_NAME", STRUCTURE_NAME);
-			
-			$this->assign("URL_SITE", URL_SITE);
+
 		}
 	}
 	

@@ -12,19 +12,27 @@
 
 require_once "const.inc.php";
 require_once PATH."lib/smarty/Smarty.class.php";
+require_once PATH."core/class/classlibrary.class.php";
 
 // Triggered when calling an undefined class.
 function jphp_autoload($name)
 {
-	$f = PATH."core/class/". strtolower($name) .".class.php";
-
-	if(file_exists($f))
-		require_once $f;
-
+	// Look in the controller folder of the core (essentially for error pages);
 	$f = PATH."core/controllers/". strtolower($name) .".php";
 
 	if(file_exists($f))
 		require_once $f;
+	
+	$array_folder = ClassLibrary::getClassFolders();
+	
+	foreach($array_folder as $folder)
+	{
+		$file = $folder.$name.".class.php";
+		if(!file_exists($file))
+			continue;
+		require_once $file;
+		return;
+	}
 }
 
 spl_autoload_register("jphp_autoload");
@@ -43,6 +51,7 @@ Includer::setGenerateCaching($generateCache);
 $chrono->start("Class inclusion");
 Includer::includePath(PATH."core/inc/");
 Includer::includePath(PATH."core/class/");
+Includer::includePath(PATH."class/");
 $chrono->stop("Class inclusion");
 
 
@@ -83,7 +92,7 @@ $_SESSION['jphp_ids'] = array();
 if($generateCache)
 	Cache::save();
 
-JPHP::setDebug(true);
+JPHP::setDebug(false);
 
 require_once "lib/openid/openid.php";
 ?>

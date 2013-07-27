@@ -20,16 +20,13 @@ define("TAB", "\t");
 
 // Définit si le mode de debug est par défaut activé ou non
 define("DEBUG", 0);
-define("ALL_ACCESS", 0);
+define("ALL_ACCESS", 1);
 
-define("STRUCTURE_NAME", "tfe");
+define("STRUCTURE_NAME", "wegift");
 
 define("DEFAULT_LANGUAGE", 7);
 
 define("TPL", PATH_TPL."default/");
-
-define("URL_SITE", "http://www.itstudents.be/~jipe/jphp");
-define("EMAIL", "noreply@wegift.com");
 
 define("DATE_FORMAT", "%d/%m/%Y");
 define("TIME_FORMAT", "%H:%M");

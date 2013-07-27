@@ -178,7 +178,7 @@ abstract class Page extends Object
 		if($this->userCanAccess())
 		{
 			if($this->plugin != null)
-				$this->plugin->prerender();
+				$this->plugin->prerender_once();
 				
 			$this->prerender();
 			$render = $this->selfrender();
