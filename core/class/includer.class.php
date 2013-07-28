@@ -341,7 +341,9 @@ class Includer
 		if(!is_dir($folder))
 			throw new Exception("The template does not exists");
 	
-		HtmlHeaders::includeDir("css", $folder."/css");
-		HtmlHeaders::includeDir("js", $folder."/js");
+		if(is_dir($folder."/css"))
+			HtmlHeaders::includeDir("css", $folder."/css");
+		if(is_dir($folder."/js"))
+			HtmlHeaders::includeDir("js", $folder."/js");
 	}
 }
