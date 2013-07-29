@@ -40,6 +40,16 @@ class Date
 						'year' => $year			
 						);
 	}
+	
+	public static function toBeginOfDay($time) // 00h00
+	{
+		return $time - ($time % (3600 * 24));
+	}
+	
+	public static function toEndOfDay($time) // 23h59
+	{
+		return self::toBeginOfDay($time) + 24 * 3600 - 1;
+	}
 }
 
 ?>
