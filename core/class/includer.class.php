@@ -200,6 +200,7 @@ class Includer
 							throw new Exception("Plugin subclass not found in " . $path.$file);
 						
 						$model_instance = new $class();
+						$model_instance->setPlugin($plugin_instance);
 						$plugin_instance->addModel($model_instance);
 						unset($new_included_class[$k]);
 						
