@@ -53,7 +53,7 @@ class Post
 	
 	public static function float($field, $default = self::DEFAULT_FLOAT)
 	{
-		return isset($_POST[$field]) ? floatval($_POST[$field]) : $default;
+		return isset($_POST[$field]) ? floatval(str_replace(",", ".", $_POST[$field])) : $default;
 	}
 	
 	public static function double($field, $default = self::DEFAULT_DOUBLE)
