@@ -56,7 +56,7 @@ class Get
 	
 	public static function bool($field, $default = self::DEFAULT_BOOL)
 	{
-		return isset($_GET[$field]) ? (bool)$_GET[$field] : $default;
+		return isset($_GET[$field]) ? in_array($_GET[$field], array("1", "true", "TRUE")) : $default;
 	}
 	
 	public static function boolValue($field, $trueValue, $default = self::DEFAULT_BOOL)

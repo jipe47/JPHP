@@ -120,7 +120,7 @@ class ArrayProcessor
 	
 	public static function boolStatic($array, $key, $default = self::DEFAULT_BOOL)
 	{
-		return !empty($array[$key]) ? (bool) $array[$key] : $default;
+		return isset($array[$key]) ? in_array($array[$key], array("1", "true", "TRUE")) : $default;
 	}
 	
 	public static function boolValueStatic($array, $key, $trueValue, $default = self::DEFAULT_BOOL)

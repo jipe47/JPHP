@@ -63,7 +63,7 @@ class Post
 	
 	public static function bool($field, $default = self::DEFAULT_BOOL)
 	{
-		return isset($_POST[$field]) ? (bool)$_POST[$field] : $default;
+		return isset($_POST[$field]) ? in_array($_POST[$field], array("1", "true", "TRUE")) : $default;
 	}
 	
 	public static function boolValue($field, $trueValue, $default = self::DEFAULT_BOOL)
