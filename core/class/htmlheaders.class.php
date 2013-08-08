@@ -77,12 +77,49 @@ class HtmlHeaders
 	*/
 	public static function getHeaders()
 	{
+		$enable_css_compression = JPHP::get("enable_css_compression", false);
+		$compressed_file_exists = file_exists(PATH_CACHE."css/compression.css");
+		
+		$array_css_files = array();
+		
 		if(count(self::$headers) == 0)
 			return "";
 
 		$h = "";
 		foreach(self::$headers as $head)
-			$h .= $head->render().EOL;
+		{
+			if($enable_css_compression && $head->type == "text/css")
+				$array_css_files[] = $head->href;
+			else
+				$h .= $head->render().EOL;
+		}
+		
+		if($enable_css_compression)
+		{
+			if(!$compressed_file_exists)
+			{
+				// Generate the file if it does not exist
+				
+				$css_content = "";
+				
+				foreach($array_css_files as $file)
+					$css_content .= file_get_contents($file).EOL;
+				
+				// CSS compression
+				
+				$css_content = CssMin::minify($css_content);
+			
+				file_put_contents(PATH_CACHE."css/compression.css", $css_content);
+			}
+			
+			$header = new HtmlHeader(HtmlHeader::LINK);
+			$header->set('rel', 'stylesheet');
+			$header->set('type', 'text/css');
+			$header->set('media', 'screen');
+			$header->set('href', PATH_CACHE."css/compression.css");
+			$h .= $header->render().EOL;
+		}
+		
 		return $h;
 	}
 	
