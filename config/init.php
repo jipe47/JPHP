@@ -17,8 +17,9 @@ require_once PATH."core/class/classlibrary.class.php";
 // Triggered when calling an undefined class.
 function jphp_autoload($name)
 {
+	$name = strtolower($name);
 	// Look in the controller folder of the core (essentially for error pages);
-	$f = PATH."core/controllers/". strtolower($name) .".php";
+	$f = PATH."core/controllers/". $name .".php";
 
 	if(file_exists($f))
 		require_once $f;
