@@ -271,9 +271,12 @@ class SqlRequest
 		return $this->query("INSERT INTO " . $table . " (".$keys.") VALUES (".$values.")");
 	}
 	
-	public function delete($table, $key, $value)
+	public function delete()
 	{
-		$where = func_num_args() == 3 ? $key . "='" . $value."'" : $key;
+		$table = func_get_arg(0);
+		$key = func_get_arg(1);
+		
+		$where = func_num_args() == 3 ? $key . "='" . func_get_arg(2)."'" : $key;
 		return $this->query("DELETE FROM " . $table . " WHERE " . $where);
 	}
 	
