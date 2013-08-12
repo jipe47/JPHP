@@ -13,6 +13,7 @@ abstract class Plugin extends Object
 	public $adminLinks = array();
 	protected $scripts = array();
 	
+	protected $adminName = "";
 	protected $pluginName = "";
 	protected $defaultModel = null;
 	protected $models = array();
@@ -60,7 +61,7 @@ abstract class Plugin extends Object
 	{
 		return $this->path;
 	}
-	
+
 	public function setPluginName($n)
 	{
 		$this->pluginName = $n;
@@ -68,6 +69,15 @@ abstract class Plugin extends Object
 	public function getPluginName()
 	{
 		return $this->pluginName;
+	}
+
+	public function setAdminName($n)
+	{
+		$this->adminName = $n;
+	}
+	public function getAdminName()
+	{
+		return $this->adminName;
 	}
 	
 	public function addModel($m)

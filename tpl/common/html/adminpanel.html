@@ -4,7 +4,7 @@
 	<div class="colleft">
 		{foreach from=$array_plugin key=name item=i}
 		<a
-			href="#" onclick="adminShowSubPanel('subpanel_{$name}')"><div>{$name}</div></a>
+			href="#" onclick="adminShowSubPanel('subpanel_{$name}')"><div>{$i.name}</div></a>
 		<br /> {/foreach}
 	</div>
 
@@ -13,8 +13,7 @@
 
 		{foreach from=$array_plugin key=name item=i name=loop_plugin}
 		<div id="subpanel_{$name}" class="panel">
-			<h2>{$name}</h2>
-
+			<h2>{$i.name}</h2>
 			{foreach from=$i.links item=l} <a
 				href='{jphp_mkLink arg="Admin,{$name},{$l.link}"}'>{$l.name}</a><br />
 			{/foreach} {if count($i.scripts) > 0}

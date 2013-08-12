@@ -52,6 +52,7 @@ class Plugins
 			{
 				$array[$pname]['links'] = $p->getAdminLinks();
 				$array[$pname]['scripts'] = $p->getScripts();
+				$array[$pname]['name'] = $p->getAdminName() == "" ? $pname : $p->getAdminName();
 			}
 		}
 		ksort($array);
