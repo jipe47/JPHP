@@ -70,4 +70,12 @@ function array_compare($op1, $op2)
     return 0; // $op1 == $op2
 }
 
+function array_first_key($a)
+{
+	if(count($a) == 0)
+		return null;
+		
+	$k = array_keys($a);
+	return $k[0];
+}
 ?>
