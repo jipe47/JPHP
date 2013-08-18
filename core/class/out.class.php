@@ -27,6 +27,42 @@ class out
 	{
 		Messages::add($message, $type);
 	}
+	
+	/**
+	* Displays an error message ; alias of message.
+	* @param string $message The message which will be displayed.
+	*/
+	public static function e($message)
+	{
+		self::message($message, Message::ERROR);
+	}
+	
+	/**
+	* Displays an informative message ; alias of message.
+	* @param string $message The message which will be displayed.
+	*/
+	public static function i($message)
+	{
+		self::message($message, Message::INFO);
+	}
+	
+	/**
+	* Displays a warning message ; alias of message.
+	* @param string $message The message which will be displayed.
+	*/
+	public static function w($message)
+	{
+		self::message($message, Message::WARNING);
+	}
+	
+	/**
+	* Displays a success message ; alias of message.
+	* @param string $message The message which will be displayed.
+	*/
+	public static function s($message)
+	{
+		self::message($message, Message::SUCCESS);
+	}
 }
 
 ?>
