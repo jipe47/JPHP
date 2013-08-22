@@ -51,12 +51,26 @@ class Plugins
 			if($hasLinks || $hasScripts)
 			{
 				$array[$pname]['links'] = $p->getAdminLinks();
+				$array[$pname]['position'] = $p->getAdminPosition();
 				$array[$pname]['scripts'] = $p->getScripts();
 				$array[$pname]['name'] = $p->getAdminName() == "" ? $pname : $p->getAdminName();
 			}
 		}
-		ksort($array);
+		
+		// Sort the administration panels by position and name
+		usort($array, "Plugins::sortPlugin");
 		return $array;
+	}
+	
+	public static function sortPlugin($a, $b)
+	{
+		$ap = $a['position'];
+		$bp = $b['position'];
+		
+		if($ap != $bp)
+			return $ap < $bp ? -1 : 1;
+		else
+			return strcmp($a['name'],$b['name']);
 	}
 	
 	public static function addAdminLink($pluginName, $name, $link)

@@ -10,10 +10,10 @@ abstract class Plugin extends Object
 {	
 	public static $rights = null;
 	public static $ini = null;
-	public $adminLinks = array();
+	
 	protected $scripts = array();
 	
-	protected $adminName = "";
+	
 	protected $pluginName = "";
 	protected $defaultModel = null;
 	protected $models = array();
@@ -23,6 +23,11 @@ abstract class Plugin extends Object
 	private $defaultWidget = null;
 	
 	private $hasBeenPrerendered = false;
+	
+	/** Administration panel part**/
+	protected $adminName = "";
+	public $adminLinks = array();
+	public $adminPosition = 0; // Position in the admin panel
 	
 	public function __construct()
 	{
@@ -66,11 +71,22 @@ abstract class Plugin extends Object
 	{
 		$this->pluginName = $n;
 	}
+	
 	public function getPluginName()
 	{
 		return $this->pluginName;
 	}
-
+	
+	public function setAdminPosition($p)
+	{
+		$this->adminPosition = $p;
+	}
+	
+	public function getAdminPosition()
+	{
+		return $this->adminPosition;
+	}
+	
 	public function setAdminName($n)
 	{
 		$this->adminName = $n;
