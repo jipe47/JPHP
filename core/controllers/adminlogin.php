@@ -8,7 +8,7 @@
 class AdminLogin extends Page
 {
 	private $members = array(
-			"admin" => "21232f297a57a5a743894a0e4a801fc3" // <=> admin
+			//"admin" => "21232f297a57a5a743894a0e4a801fc3" // <=> admin
 	);
 	
 	public function construct()
@@ -19,6 +19,12 @@ class AdminLogin extends Page
 	
 	public function prerender()
 	{
+		if(count($this->member == 0))
+		{
+			$_SESSION["isAdmin"] = true;
+			$this->setLocation("AdminPanel");
+			return;
+		}
 		if(Post::exists("admin_login"))
 		{
 			$login = Post::string("admin_login");
