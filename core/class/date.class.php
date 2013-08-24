@@ -50,6 +50,21 @@ class Date
 	{
 		return self::toBeginOfDay($time) + 24 * 3600 - 1;
 	}
+	
+	public static function toMiddleDay($time) // 12h00
+	{
+		return self::toBeginOfDay($time) + 12 * 3600;
+	}
+	
+	public static function toBeginOfMonth($time) // 1st of M
+	{
+		return mktime (date("g", $time), date("i", $time), date("s", $time), date("n", $time), 1, date("Y", $time));
+	}
+	
+	public static function toEndOfMonth($time)
+	{
+		return mktime (date("g", $time), date("i", $time), date("s", $time), date("n", $time), date("t", $time), date("Y", $time));
+	}
 }
 
 ?>
