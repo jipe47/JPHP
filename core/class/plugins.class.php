@@ -58,7 +58,7 @@ class Plugins
 		}
 		
 		// Sort the administration panels by position and name
-		usort($array, "Plugins::sortPlugin");
+		uasort($array, "Plugins::sortPlugin");
 		return $array;
 	}
 	
