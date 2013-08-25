@@ -188,6 +188,10 @@ abstract class Page extends Object
 
 			if($this->showHeaders)
 			{
+				// Messages
+				$messages = $this->renderClass("Messages");
+				$this->assign("messages", $messages);
+				
 				// Footer
 				$footer = $this->hasFullRender() ? $this->renderClass("Footer") : "";
 				$this->assign("footer", $footer);
@@ -199,10 +203,6 @@ abstract class Page extends Object
 				// Header
 				$header = $this->hasFullRender() ? $this->renderClass("Header") : "";
 				$this->assign("header", $header);
-	
-				// Messages
-				$messages = $this->renderClass("Messages");
-				$this->assign("messages", $messages);
 	
 				// Debug div
 				$debug = (JPHP::debug() && $this->hasFullRender()) ? $this->renderClass("Debugger") : "";
