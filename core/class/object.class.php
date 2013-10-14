@@ -9,7 +9,18 @@
 
 class Object
 {
-	protected $request, $tpl, $chrono, $arg;
+	/**
+	 * @var SqlRequest
+	 */
+	protected $request;
+	
+	/**
+	 * 
+	 * @var Smarty
+	 */
+	protected $tpl;
+	protected $chrono;
+	protected $arg;
 	private $objectName;
 	
 	// Boolean to make sure basic vars are assigned only once.

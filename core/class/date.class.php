@@ -9,6 +9,9 @@
  */
 class Date
 {
+	
+	const SEC_IN_DAY = 86400;
+	
 	/**
 	 * Returns a (possibly short) month name based on it's number.
 	 * @param int $number Month number.
