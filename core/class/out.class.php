@@ -38,12 +38,30 @@ class out
 	}
 	
 	/**
+	 * @see out::e
+	 * @param string $message The message which will be displayed.
+	 */
+	public static function error($message)
+	{
+		self::e($message);
+	}
+	
+	/**
 	* Displays an informative message ; alias of message.
 	* @param string $message The message which will be displayed.
 	*/
 	public static function i($message)
 	{
 		self::message($message, Message::INFO);
+	}
+	
+	/**
+	 * @see out::i
+	 * @param string $message The message which will be displayed.
+	 */
+	public static function info($message)
+	{
+		self::i($message);
 	}
 	
 	/**
@@ -54,6 +72,24 @@ class out
 	{
 		self::message($message, Message::WARNING);
 	}
+
+	/*
+	 * @see out::w
+	 * @param string $message The message which will be displayed.
+	 */
+	public static function warn($message)
+	{
+		self::w($message);
+	}
+	
+   /*
+	* @see out::w
+	* @param string $message The message which will be displayed.
+	*/
+	public static function warning($message)
+	{
+		self::w($message);
+	}
 	
 	/**
 	* Displays a success message ; alias of message.
@@ -62,6 +98,15 @@ class out
 	public static function s($message)
 	{
 		self::message($message, Message::SUCCESS);
+	}
+	
+	/*
+	 * @see out::s
+	* @param string $message The message which will be displayed.
+	*/
+	public static function success($message)
+	{
+		self::s($message);
 	}
 }
 
