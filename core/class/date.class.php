@@ -109,6 +109,13 @@ class Date
 		}
 		return $array_holidays;
 	}
+	
+	private static $array_month = array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre");
+	
+	public static function getMonthName($i)
+	{
+		return self::$array_month[$i - 1];
+	}
 }
 
 ?>
